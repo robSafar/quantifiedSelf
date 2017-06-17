@@ -1,5 +1,4 @@
 # Quantified Self data processing
-# Data obtained using Workflow for iOS
 
 ## Packages
 library("ggplot2")
