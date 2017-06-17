@@ -1,4 +1,4 @@
-# Quantified Self data processing
+# quantifiedSelf Data Processing
 
 ## Packages
 library("ggplot2")
