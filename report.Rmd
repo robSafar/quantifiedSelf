@@ -1,0 +1,36 @@
+---
+title: 'quantifiedSelf Report'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, echo=FALSE}
+source("script.R")
+```
+
+## Introduction
+
+Recording, measuring and analysing personal drug consumption; including medicinal and recreational/habitual.
+
+### The data
+
+Data has been collected using [Workflow for iOS](https://workflow.is), appending lines to a `.csv` file with the date and time, location (postcode), and the activity being recorded.
+
+Basic cleaning and processing takes place in the accompanying `script.R` file.
+
+```{r}
+str(selfData)
+```
+
+## Analysis
+
+### Basic Plots
+
+Here is a very quick plot of the data.
+
+```{r}
+qplot(selfData$DateTime, selfData$Activity)
+```
