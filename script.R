@@ -18,9 +18,21 @@ rm(YY)
 ## Export updated raw data to working directory
 write.csv(selfData, file="rawData.csv")
 
-## Manipulating
-### Weekdays
-wdays <- weekdays(selfData$DateTime)
-wdays <- factor(wdays, levels=c("Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"))
-selfData$Weekday <- wdays
-rm(wdays)
+## Manipulation
+selfData$Date <- as.Date(selfData$DateTime)
+
+### Averages by weekday
+dailyTotals <- as.data.frame.matrix(table(selfData$Date, selfData$Activity))
+dailyTotals$weekday <- weekdays(as.Date(row.names(dailyTotals)))
+dailyTotals$weekday <- factor(dailyTotals$weekday, levels=c("Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"))
+wdayAvg <- NULL
+for (i in 1:length(levels(selfData$Activity))) {
+    wdayAvg <- rbind(wdayAvg,
+                     data.frame(
+                         rep(colnames(dailyTotals)[i],7),
+                         levels(dailyTotals$weekday),
+                         tapply(dailyTotals[,i], dailyTotals$weekday, mean)
+                     )
+    )
+}
+colnames(wdayAvg) <- c("Activity","Weekday","Average") ; rownames(wdayAvg) <- NULL ; wdayAvg$Weekday <- factor(wdayAvg$Weekday, levels=c("Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"))

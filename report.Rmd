@@ -27,10 +27,16 @@ str(selfData)
 
 ## Analysis
 
-### Basic Plots
-
 Here is a very quick plot of the data.
 
 ```{r}
-qplot(selfData$DateTime, selfData$Activity)
+with(selfData, qplot(DateTime, Activity))
+```
+
+### Weekdays
+
+By grouping daily consumption and then averaging across weekdays, the below plot shows something like how an average week of consumption looks.
+
+```{r}
+ggplot(wdayAvg, aes(x = Weekday, y = Average, color = Activity, group = Activity)) + geom_point() + geom_line()
 ```
