@@ -15,7 +15,7 @@ for (i in 1:length(selfData$DateTime)) {
 selfData$DateTime <- as.POSIXct(YY, format="%Y-%m-%dT%H:%M:%S%z")
 rm(YY)
 
-## Export updated raw data to working directory
+### Export clean data to working directory
 write.csv(selfData, file="rawData.csv")
 
 ## Manipulation

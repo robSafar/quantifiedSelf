@@ -17,7 +17,7 @@ Recording, measuring and analysing personal drug consumption; including medicina
 
 ### The data
 
-Data has been collected using [Workflow for iOS](https://workflow.is), appending lines to a `.csv` file with the date and time, location (postcode), and the activity being recorded.
+Base data includes (of the observation) the date and time, location (postcode), and the activity being recorded.
 
 Basic cleaning and processing takes place in the accompanying `script.R` file.
 
@@ -30,7 +30,7 @@ str(selfData)
 Here is a very quick plot of the data.
 
 ```{r}
-with(selfData, qplot(DateTime, Activity))
+with(selfData, qplot(DateTime, Activity, alpha=I(0.25)))
 ```
 
 ### Weekdays
