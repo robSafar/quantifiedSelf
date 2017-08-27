@@ -51,6 +51,6 @@ source("activity.R")
 ```
 
 ```{r}
-qplot(kcals, value, data = activityVsConsumption, facets = .~variable) + 
+qplot(kcals, value, data = activityVsConsumption, facets = .~variable, alpha=I(0.25)) + 
     geom_smooth(method = "lm")
 ```
