@@ -11,6 +11,9 @@ Resources for analysing personal 'quantified self' data
 ## Requirements
 
 - [R](https://cran.r-project.org)
-    - `knitr` package for weaving the R Markdown analysis
     - `ggplot2` package for plotting graphics
+    - `knitr` package for weaving the R Markdown analysis
+    - `lubridate`
+    - `reshape2`
+    - `XML`
 
