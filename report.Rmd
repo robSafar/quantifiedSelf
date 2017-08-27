@@ -1,14 +1,19 @@
 ---
-title: 'quantifiedSelf Report'
-output: html_document
+title: "quantifiedSelf Report"
+output:
+  pdf_document: default
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(message = FALSE)
+knitr::opts_chunk$set(warning = FALSE)
 ```
 
 ```{r, echo=FALSE}
 source("script.R")
+library("ggplot2")
 ```
 
 ## Introduction
@@ -19,12 +24,6 @@ Recording, measuring and analysing personal drug consumption; including medicina
 
 Base data includes (of the observation) the date and time, location (postcode), and the activity being recorded.
 
-Basic cleaning and processing takes place in the accompanying `script.R` file.
-
-```{r}
-str(selfData)
-```
-
 ## Analysis
 
 Here is a very quick plot of the data.
@@ -33,10 +32,25 @@ Here is a very quick plot of the data.
 with(selfData, qplot(DateTime, Activity, alpha=I(0.25)))
 ```
 
-### Weekdays
+### Consumption by weekdays
 
 By grouping daily consumption and then averaging across weekdays, the below plot shows something like how an average week of consumption looks.
 
 ```{r}
-ggplot(wdayAvg, aes(x = Weekday, y = Average, color = Activity, group = Activity)) + geom_point() + geom_line()
+ggplot(wdayAvg, aes(x = Weekday, y = Average, color = Activity, group = Activity)) + 
+    geom_point() + 
+    geom_line()
+```
+
+### iOS Health/Activity cross-examination
+
+Merging physical activity data can show some correlations with certain kinds of consumption. Here, active (non-basal) calorie burning is plotted against consumption categories.
+
+```{r, echo=FALSE, cache=TRUE}
+source("activity.R")
+```
+
+```{r}
+qplot(kcals, value, data = activityVsConsumption, facets = .~variable) + 
+    geom_smooth(method = "lm")
 ```

@@ -1,10 +1,7 @@
 # quantifiedSelf Data Processing
 
-## Packages
-library("ggplot2")
-
 ## Load from source
-selfData <- read.csv("/Users/robsafar/Library/Mobile\ Documents/iCloud~is~workflow~my~workflows/Documents/quantifiedSelf.txt",header=FALSE,na.strings="")
+selfData <- read.csv("~/Library/Mobile\ Documents/iCloud~is~workflow~my~workflows/Documents/quantifiedSelf.txt",header=FALSE,na.strings="")
 
 ## Cleaning
 names(selfData) <- c("DateTime","Postcode","Activity","Notes")
