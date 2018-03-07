@@ -9,7 +9,7 @@ YY <- as.character(selfData$DateTime)
 for (i in 1:length(selfData$DateTime)) {
     YY[i] <- paste(substr(selfData$DateTime[i],1,22),substr(selfData$DateTime[i],24,25),sep="")
 }
-selfData$DateTime <- as.POSIXct(YY, format="%Y-%m-%dT%H:%M:%S%z")
+selfData$DateTime <- as.POSIXct(YY, format="%Y-%m-%dT%H:%M:%S")
 rm(YY)
 
 ### Export clean data to working directory
@@ -33,3 +33,18 @@ for (i in 1:length(levels(selfData$Activity))) {
     )
 }
 colnames(wdayAvg) <- c("Activity","Weekday","Average") ; rownames(wdayAvg) <- NULL ; wdayAvg$Weekday <- factor(wdayAvg$Weekday, levels=c("Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"))
+
+### Weekly intake
+dailyTotals$weekNumber <- as.factor(strftime(row.names(dailyTotals), format="%Y%V"))
+weekTotals <- NULL
+for (i in 1:length(levels(selfData$Activity))) {
+    weekTotals <- cbind(weekTotals,
+                     tapply(dailyTotals[,i], dailyTotals$weekNumber, sum)
+                     )
+}
+colnames(weekTotals) <- levels(selfData$Activity)
+weekAvg <- NULL
+for (i in 1:length(levels(selfData$Activity))) {
+    weekAvg[i] <- mean(weekTotals[,i])
+}
+weekAvg <- cbind(levels(selfData$Activity), weekAvg)

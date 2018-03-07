@@ -14,6 +14,7 @@ knitr::opts_chunk$set(warning = FALSE)
 ```{r, echo=FALSE}
 source("script.R")
 library("ggplot2")
+library("knitr")
 ```
 
 ## Introduction
@@ -42,11 +43,17 @@ ggplot(wdayAvg, aes(x = Weekday, y = Average, color = Activity, group = Activity
     geom_line()
 ```
 
+### Weekly intake
+
+```{r}
+kable(weekAvg)
+```
+
 ### iOS Health/Activity cross-examination
 
 Merging physical activity data can show some correlations with certain kinds of consumption. Here, active (non-basal) calorie burning is plotted against consumption categories.
 
-```{r, echo=FALSE, cache=TRUE}
+```{r, echo=FALSE}
 source("activity.R")
 ```
 
