@@ -1,7 +1,9 @@
+*~
 .DS_Store
 .Rhistory
 .gitignore.swp
 *.Rproj
+.Rproj.user/
 rawData.csv
 report.html
 report.pdf
