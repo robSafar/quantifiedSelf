@@ -7,6 +7,8 @@
 rawData.csv
 report.html
 report.pdf
+report.log
+report.tex
 report_cache/
 report_files/
 .gitignore.swp
