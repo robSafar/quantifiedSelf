@@ -53,11 +53,13 @@ kable(weekAvg)
 
 Merging physical activity data can show some correlations with certain kinds of consumption. Here, active (non-basal) calorie burning is plotted against consumption categories.
 
+**Commented out**
+
 ```{r, echo=FALSE}
-source("activity.R")
+#source("activity.R")
 ```
 
 ```{r}
-qplot(kcals, value, data = activityVsConsumption, facets = .~variable, alpha=I(0.25)) + 
-    geom_smooth(method = "lm")
+#qplot(kcals, value, data = activityVsConsumption, facets = .~variable, alpha=I(0.25)) + 
+#    geom_smooth(method = "lm")
 ```

@@ -1,7 +1,8 @@
 # quantifiedSelf Data Processing
 
 ## Load from source
-selfData <- read.csv("~/Library/Mobile\ Documents/iCloud~is~workflow~my~workflows/Documents/quantifiedSelf.txt",header=FALSE,na.strings="")
+# selfData <- read.csv("~/Library/Mobile\ Documents/iCloud~is~workflow~my~workflows/Documents/quantifiedSelf.txt",header=FALSE,na.strings="")
+selfData <- read.csv("~/Downloads/quantifiedSelf2020.txt",header=FALSE,na.strings="")
 
 ## Cleaning
 names(selfData) <- c("DateTime","Postcode","Activity","Notes")
@@ -23,7 +24,7 @@ dailyTotals <- as.data.frame.matrix(table(selfData$Date, selfData$Activity))
 dailyTotals$weekday <- weekdays(as.Date(row.names(dailyTotals)))
 dailyTotals$weekday <- factor(dailyTotals$weekday, levels=c("Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"))
 wdayAvg <- NULL
-for (i in 1:length(levels(selfData$Activity))) {
+for (i in 1:length(levels(as.factor(selfData$Activity)))) {
     wdayAvg <- rbind(wdayAvg,
                      data.frame(
                          rep(colnames(dailyTotals)[i],7),
@@ -37,14 +38,15 @@ colnames(wdayAvg) <- c("Activity","Weekday","Average") ; rownames(wdayAvg) <- NU
 ### Weekly intake
 dailyTotals$weekNumber <- as.factor(strftime(row.names(dailyTotals), format="%Y%V"))
 weekTotals <- NULL
-for (i in 1:length(levels(selfData$Activity))) {
+for (i in 1:length(levels(as.factor(selfData$Activity)))) {
     weekTotals <- cbind(weekTotals,
                      tapply(dailyTotals[,i], dailyTotals$weekNumber, sum)
                      )
 }
-colnames(weekTotals) <- levels(selfData$Activity)
+weekTotals <- data.frame(weekTotals)
+colnames(weekTotals) <- levels(as.factor(selfData$Activity))
 weekAvg <- NULL
-for (i in 1:length(levels(selfData$Activity))) {
+for (i in 1:length(levels(as.factor(selfData$Activity)))) {
     weekAvg[i] <- mean(weekTotals[,i])
 }
-weekAvg <- cbind(levels(selfData$Activity), weekAvg)
+weekAvg <- cbind(levels(as.factor(selfData$Activity)), weekAvg)
