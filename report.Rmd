@@ -1,8 +1,8 @@
 ---
 title: "quantifiedSelf Report"
 output:
-  pdf_document: default
   html_document: default
+  pdf_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -31,6 +31,14 @@ Here is a very quick plot of the data.
 
 ```{r}
 with(selfData, qplot(DateTime, Activity, alpha=I(0.25)))
+```
+
+And totals for each activity. 
+
+```{r}
+for (i in 1:length(levels(as.factor(selfData$Activity)))) {
+  print(paste(colnames(dailyTotals)[i],":",sum(dailyTotals[,i])))
+}
 ```
 
 ### Consumption by weekdays
